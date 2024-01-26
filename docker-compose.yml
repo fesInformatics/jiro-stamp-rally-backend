@@ -1,18 +1,19 @@
 version: "3"
-services: 
+services:
   app:
     build:
       context: .
       dockerfile: ./Dockerfile
     ports:
-     - "3000:8080"
+      - "3000:8080"
     environment:
       DB_HOST: ${DB_HOST}
       DB_PORT: ${DB_PORT}
       DB_DATABASE: ${DB_DATABASE}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
-    volumes: 
+      FRONTEND_URL: ${FRONTEND_URL}
+    volumes:
       - ./jiro-stamp-rally:/app
     tty: true
   mysql:
@@ -43,7 +44,6 @@ services:
     links:
       - mysql
 
-  
 volumes:
- mysql-data:
-  driver: local
+  mysql-data:
+    driver: local

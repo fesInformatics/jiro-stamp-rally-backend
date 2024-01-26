@@ -2,10 +2,11 @@ package interactor
 
 import (
 	"errors"
+
 	"github.com/fesInformatics/jiro-stamp-rally/usecase/repository"
 )
 
-var ErrUserDuplicate = errors.New("user is duplicate")
+var ErrUserDuplicate = errors.New("登録済のアカウントです。")
 
 type UserInteractor struct {
 	repository repository.UserRepository

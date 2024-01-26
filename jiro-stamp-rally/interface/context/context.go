@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
+	"os"
 )
 
 type Context struct {
@@ -13,6 +14,10 @@ type Context struct {
 
 func (c *Context) JSON(code int, v any) {
 	c.w.Header().Set("Contetnt-Type", "application/json; charset=utf-8")
+	c.w.Header().Set("Access-Control-Allow-Origin", os.Getenv("FRONTEND_URL"))
+	c.w.Header().Set("Access-Control-Allow-Headers", "X-CSRF-Header,Authorization,Content-Type")
+	c.w.Header().Set("Access-Control-Allow-Credentials", "true")
+	c.w.Header().Set("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
 	c.w.WriteHeader(code)
 	if v != nil {
 		if err := json.NewEncoder(c.w).Encode(v); err != nil {

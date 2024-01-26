@@ -16,6 +16,8 @@ type UserController struct {
 
 func (c UserController) Create(ctx context.Context) {
 	switch ctx.GetHttpMethod() {
+	case http.MethodOptions:
+		ctx.JSON(http.StatusOK, nil)
 	case http.MethodPost:
 		var user UserCreate
 		if err := json.NewDecoder(ctx.GetBody()).Decode(&user); err != nil {
